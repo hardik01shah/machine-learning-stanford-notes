@@ -67,32 +67,11 @@ X_temp = sigmoid(X_temp*Theta1');
 X_temp = [ones(m,1) X_temp];
 X_temp = sigmoid(X_temp*Theta2');
 
-    
+y_temp = zeros(m,num_labels);
 for i=1:m
-    y_temp = zeros(1,num_labels);
-    y_temp(y(i)) = 1;
-    x = X_temp(i,:);
-    x = x(:);
-    y_temp = y_temp(:);
-    J = J + sum((-y_temp.*log(x))-((1-y_temp).*(log(1-x))));
+    y_temp(i,y(i)) = 1;
 end
-J = (1/m)*J;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+J = (1/m)*sum(sum(-y_temp.*log(X_temp)-(1-y_temp).*(log(1-X_temp))));
 
 
 % -------------------------------------------------------------
