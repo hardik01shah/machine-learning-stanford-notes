@@ -110,7 +110,7 @@ end
 Theta1_grad = (1/m)*Theta1_grad;
 Theta2_grad = (1/m)*Theta2_grad;
 
-%reg
+%Regularization of gradients
 t1 = Theta1_grad(:,1);
 t2 = Theta2_grad(:,1); 
 
