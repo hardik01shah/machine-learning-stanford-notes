@@ -74,6 +74,53 @@ end
 J = (1/m)*sum(sum(-y_temp.*log(X_temp)-(1-y_temp).*(log(1-X_temp))));
 
 
+%Regularization
+t1 = Theta1;
+t2 = Theta2;
+
+Theta1(:,1) = zeros(size(Theta1,1),1);
+Theta2(:,1) = zeros(size(Theta2,1),1);
+Theta1 = Theta1.^2;
+Theta2 = Theta2.^2;
+
+J = J + (lambda/(2*m))*(sum(Theta1(:))+sum(Theta2(:)));
+Theta1 = t1;
+Theta2 = t2;
+
+%Backprop
+for i=1:m
+    y_tmp = y_temp(i,:);
+    y_tmp = y_tmp(:);
+    
+    a_1 = X(i,:);
+    a_1 = a_1(:);
+    a_1 = [1;a_1];
+    a_2 = sigmoid(Theta1*a_1);
+    a_2 = [1;a_2];
+    a_3 = sigmoid(Theta2*a_2);
+    
+    del_3 = a_3 - y_tmp;
+    %disp(size(Theta2(:,2:end)'*del_3));disp(size(Theta1*a_1));
+    del_2 = (Theta2(:,2:end)'*del_3).*sigmoidGradient(Theta1*a_1);
+    
+    Theta1_grad = Theta1_grad + (del_2*a_1');
+    Theta2_grad = Theta2_grad + (del_3*a_2');
+end
+
+Theta1_grad = (1/m)*Theta1_grad;
+Theta2_grad = (1/m)*Theta2_grad;
+
+%reg
+t1 = Theta1_grad(:,1);
+t2 = Theta2_grad(:,1); 
+
+Theta1_grad = Theta1_grad + (lambda/m)*Theta1;
+Theta2_grad = Theta2_grad + (lambda/m)*Theta2;
+
+Theta1_grad(:,1) = t1;
+Theta2_grad(:,1) = t2;
+
+
 % -------------------------------------------------------------
 
 % =========================================================================
