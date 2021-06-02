@@ -100,7 +100,7 @@ for i=1:m
     a_3 = sigmoid(Theta2*a_2);
     
     del_3 = a_3 - y_tmp;
-    %disp(size(Theta2(:,2:end)'*del_3));disp(size(Theta1*a_1));
+    %Here we omit first column of Theta2 because we don't consider the bias unit in backprop
     del_2 = (Theta2(:,2:end)'*del_3).*sigmoidGradient(Theta1*a_1);
     
     Theta1_grad = Theta1_grad + (del_2*a_1');
