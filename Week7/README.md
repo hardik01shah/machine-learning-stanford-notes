@@ -37,3 +37,6 @@ Kernels in logistic regression run very slowly and hence we use Kernels only wit
 <br>
 
 We choose parameters that peform the best on the cross-validation data.
+
+<br> 
+Logistic Regression and SVM without a kernel are pretty similar algorithms.
