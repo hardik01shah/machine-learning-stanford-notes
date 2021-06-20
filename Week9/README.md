@@ -10,3 +10,4 @@
 5. The original model p(x1;mu1;sigma1^2)x..x..p(xn,mun,sigman^2) corresponds to a multivariate Gaussian where the contours of p(x,mu,Sigma) are axis alligned.
 6. The multivariate gaussian model can automatically capture correlaations between different features in x.
 7. The original model can be more computationally efficient that the multivariate gaussian model, and thus might scale better to very large values of n(number of features).
+8. In the case where a user has given no ratings for any movie, the recommender system will give an output rating of zero for every movie. This is because, for minimizing the cost function the first term of Theta'*X will be zero as it is computed only for r(i,j)=1. So, only the regularization term remains for cost minimization and that leads to Theta being [0 0 0 ..0] for the new user. Hence, all predicted ratings will be zero. To prevent this, we use mean normalization.
